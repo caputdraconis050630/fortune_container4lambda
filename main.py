@@ -1,5 +1,6 @@
 import json
 import random
+import base64
 
 def lambda_handler(event, context):
     # 포츈 쿠키 메시지 리스트
@@ -39,8 +40,9 @@ def lambda_handler(event, context):
     # 랜덤 메시지 선택
     random_message = random.choice(fortune_messages)
     
-    # 파일 내용 생성
+    # 파일 내용 생성 및 base64 인코딩
     file_content = random_message.encode('utf-8')
+    file_content_base64 = base64.b64encode(file_content).decode('utf-8')
     
     # Lambda 함수 응답 생성
     response = {
@@ -49,7 +51,7 @@ def lambda_handler(event, context):
             'Content-Type': 'text/plain',
             'Content-Disposition': 'attachment; filename=fortune_cookie.txt'
         },
-        'body': file_content,
+        'body': file_content_base64,
         'isBase64Encoded': True
     }
     
