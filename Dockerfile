@@ -6,4 +6,4 @@ WORKDIR ${LAMBDA_TASK_ROOT}
 COPY requirements.txt .
 
 # Lambda 핸들러 설정
-CMD [ "main.handler" ]
+CMD [ "main.lambda_handler" ]
